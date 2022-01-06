@@ -2,16 +2,30 @@
 
 namespace App\Controller;
 
+use App\Model\CalculateModel;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController
 {
+    private CalculateModel $calculateModel;
+
+    public function __construct()
+    {
+        $this->calculateModel = new CalculateModel();
+    }
+
     public function index(): Response
     {
-        $number = random_int(0, 15);
+        $number = $this->calculateModel->addTwoNumbers(5, 10);
 
         return new Response(
-            '<html><body>Lucky number: ' . $number . '</body></html>'
+            "
+                    <html>
+                        <body>
+                            Wynik: $number 
+                        </body>
+                    </html>
+                "
         );
     }
 
